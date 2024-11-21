@@ -1,22 +1,32 @@
+import Data from "../../data.json";
+
 const Table = () => {
+  console.log(Data);
+  const headerKeys = Object.keys(Data[0]);
+  console.log(headerKeys);
   return (
-    <div>
-      <table>
-        <header>
-          <tr>
-            <th>Header 1</th>
-            <th>Header 2</th>
+    <table style={{ width: "50%", margin: "auto" }}>
+      <thead>
+        <tr>
+          {headerKeys.map((key) => (
+            <th key={key}>{key}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {Data.map((item) => (
+          <tr key={item.id}>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.description}</td>
+            <td>{item.quantity}</td>
+            <td>{item.price}</td>
+            <td>{item.discount}</td>
           </tr>
-        </header>
-        <body>
-          <tr>
-            <td>Row 1, Cell 1</td>
-            <td>Row 1, Cell 2</td>
-          </tr>
-        </body>
-      </table>
-    </div>
-  )
-}
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 export default Table;
