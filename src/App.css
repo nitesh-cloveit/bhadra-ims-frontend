@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color:lightgray;
+  background-color:rgba(244, 242, 242, 0.949);
   width: 100vw;
 }
 
@@ -37,18 +37,23 @@ tr:nth-child(even) {
 .search-container {
   display: flex;
   align-items: center;
-  margin-left: 16px;
+  background-color: white;
+  margin-bottom: 16px;
+  padding: 8px 16px;
 }
 
 input {
   border: none;
-  padding: 4px 8px;
+  padding: 8px 8px;
+  width: 100%;
 }
 
 .icon {
   margin-right: 16px;
 }
 
-/* .icon, .search {
-  width: ;
-} */
+.icon, .search {
+  color: black;
+  height: 16px;
+  width: 16px;
+}
