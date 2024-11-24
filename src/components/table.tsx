@@ -31,7 +31,6 @@ const Table = () => {
   return (
     <div style={{ width: "50%", margin: "auto" }}>
       <h1>Products</h1>
-      {false && <p>TRUE</p>}
       <div className="search-container">
         <Search width={16} height={16} className="icon search" />
         <input

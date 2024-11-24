@@ -15,13 +15,13 @@ const Counter = () => {
 
   return (
     <div>
-      <CustomText content="Counter" color="white" size="32px" />
-      <CustomText content="This is a counter" />
+      {/* <CustomText content="Counter" color="white" size="32px" />
+      <CustomText content="This is a counter" /> */}
       <CustomText content={count.toString()} color="white" size="32px" />
       <CustomButton style={{ width: 100 }} label="+ 1" onClick={() => setCount(count + 1)} />
-      <CustomButton label="- 1" onClick={() => setCount(count - 1)} />
+      {/* <CustomButton label="- 1" onClick={() => setCount(count - 1)} />
       <CustomButton style={{ pointerEvents: disable ? "none" : "auto" }} label="Click me to disable" onClick={disableButton} />
-      <CustomButton label="Reset" onClick={() => setCount(0)} />
+      <CustomButton label="Reset" onClick={() => setCount(0)} /> */}
 
     </div>
   )
