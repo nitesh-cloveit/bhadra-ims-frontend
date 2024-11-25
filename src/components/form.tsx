@@ -15,7 +15,6 @@ const Form = () => {
 
   return (
     <div className="form container">
-      <h1>Add Products</h1>
       <form>
         <CustomInput label="Name" setValue={setName} />
         <CustomInput label="Description" setValue={setDescription} />
