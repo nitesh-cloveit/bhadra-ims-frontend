@@ -17,16 +17,31 @@ const Products = () => {
     return filteredData;
   };
 
+  const fetchMockData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/items"
+      );
+      console.log({ response });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log({ data });
+        setFilteredData(data);
+      }
+    } catch (error) {
+      console.error({ error });
+    }
+  };
+
   // filter data by name on search text change
   useEffect(() => {
+    fetchMockData();
     if (searchText !== "") {
       filterByName(searchText);
     } else {
       setFilteredData(Data);
     }
   }, [searchText]);
-
-  // filterByName("marker");
 
   return (
     <div style={{ width: "50%", margin: "auto" }}>
@@ -39,7 +54,12 @@ const Products = () => {
             setSearchText(e.target.value);
           }}
         />
-        <button style={{ marginLeft: 16, padding: "4px 16px", width: "30%"}} onClick={() => {}}>+ Add New</button>
+        <button
+          style={{ marginLeft: 16, padding: "4px 16px", width: "30%" }}
+          onClick={() => {}}
+        >
+          + Add New
+        </button>
       </div>
       <table>
         <thead>
@@ -51,7 +71,7 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((item) => (
+          {filteredData?.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.name}</td>

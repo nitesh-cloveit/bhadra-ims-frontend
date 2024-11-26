@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomInput from "./customInput";
 import "./form.css";
 
@@ -11,6 +11,32 @@ const Form = () => {
     e.preventDefault();
     console.log(name, description, quantity);
   }
+
+  const postMockData = async () => {
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          body: JSON.stringify({
+            title: "Test",
+            body: "This is test data",
+            userId: 1
+          }),
+        }
+      );
+      console.log({ response });
+      if (response.status === 201) {
+        const data = await response.json();
+        console.log({ data });
+      }
+    } catch (error) {
+      console.error({ error });
+    }
+  };
+
+  useEffect(() => {
+    postMockData();
+  }, []);
 
 
   return (
