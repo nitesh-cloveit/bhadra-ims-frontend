@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import Data from "../../../data.json";
+import { useNavigate } from "react-router";
 
 const Products = () => {
   const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState(Data);
-
-  const headerKeys = Object.keys(Data[0]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const navigate = useNavigate();
 
   const filterByName = (name: string) => {
     // filter Data by name
-    const filteredData = Data.filter(
-      (item) => item.name.toLowerCase() == name.toLowerCase()
+    const filteredData = productData.filter(
+      ({ item }: any) => item.name.toLowerCase() == name.toLowerCase()
     );
     setFilteredData(filteredData);
     return filteredData;
@@ -26,7 +26,7 @@ const Products = () => {
       if (response.status === 200) {
         const data = await response.json();
         console.log({ data });
-        setFilteredData(data);
+        setProductData(data);
       }
     } catch (error) {
       console.error({ error });
@@ -39,7 +39,7 @@ const Products = () => {
     if (searchText !== "") {
       filterByName(searchText);
     } else {
-      setFilteredData(Data);
+      setFilteredData(productData);
     }
   }, [searchText]);
 
@@ -56,7 +56,7 @@ const Products = () => {
         />
         <button
           style={{ marginLeft: 16, padding: "4px 16px", width: "30%" }}
-          onClick={() => {}}
+          onClick={() => navigate("/products/add")}
         >
           + Add New
         </button>
@@ -64,14 +64,17 @@ const Products = () => {
       <table>
         <thead>
           <tr>
-            {headerKeys.map((key) => (
-              <th key={key}>{key}</th>
-            ))}
+            <th>SN</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Discount</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredData?.map((item) => (
+          {filteredData?.map(({item}: any) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.name}</td>
@@ -79,6 +82,10 @@ const Products = () => {
               <td>{item.quantity}</td>
               <td>{item.price}</td>
               <td>{item.discount}</td>
+              <td>
+                <p>Edit</p>
+                <p>Delete</p>
+              </td>
             </tr>
           ))}
         </tbody>
