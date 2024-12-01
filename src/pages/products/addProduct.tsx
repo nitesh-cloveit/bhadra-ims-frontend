@@ -1,10 +1,14 @@
 import { useState } from "react";
 import CustomInput from "../../components/customInput";
+import { data } from "react-router";
+import axios from "axios";
 
 enum DISCOUNT_TYPE {
   RATE = "rate",
   AMOUNT = "amount",
 }
+
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZV9pZCI6MSwib3JnYW5pemF0aW9uX2lkIjoxLCJuYW1lIjoiTml0ZXNoIiwiZW1haWwiOiJuaXRlc2hzaW5naDEzNTdAZ21haWwuY29tIiwibW9iaWxlIjoiOTg0MjU4MDEzNCIsInBhc3N3b3JkIjoiJDJiJDEwJG1mSnEyWjJnZW1QSUtpRU9xZWZYeGVzYWJGWDV0MjFILnpJenBwUWV0OXFsTnRlQ2IxRTJXIiwiY3JlYXRlZF9hdCI6IjIwMjQtMTItMDFUMDc6MDc6NTkuMjU5WiIsInVwZGF0ZWRfYXQiOiIyMDI0LTEyLTAxVDA3OjA3OjU5LjI1OVoiLCJyb2xlIjp7ImlkIjoxLCJuYW1lIjoiY3VzdG9tZXIifSwiaWF0IjoxNzMzMDM2OTgxLCJleHAiOjE3MzM2NDE3ODF9.KIxXgG8Aiss1ng-o41kgNak6Ao_e7pA6sWfsyTB6Y-A";
 
 export default function AddProduct() {
   const [name, setName] = useState("");
@@ -21,25 +25,22 @@ export default function AddProduct() {
   };
 
   const addItem = async () => {
+    console.log()
     try {
-      const response = await fetch("http://localhost:8000/items", {
+      const response = await axios({
         method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   "Authorization": `Bearer ${TOKEN}`
-        // },
-        body: JSON.stringify({
+        url: "/items",
+        data: {
           name,
           description,
-          quantity,
-          price,
-          discount,
-        }),
+          quantity: parseInt(quantity),
+          price: parseFloat(price),
+          discount: parseFloat(discount),
+        },
       });
       console.log({ response });
       if (response.status === 201) {
-        const data = await response.json();
-        console.log({ data });
+        console.log({ response });
       }
     } catch (error) {
       console.error({ error });

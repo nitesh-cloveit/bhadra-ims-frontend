@@ -15,7 +15,7 @@ const Form = () => {
   const postMockData = async () => {
     try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts", {
+        "http//localhost:3000/items", {
           method: "POST",
           body: JSON.stringify({
             title: "Test",
