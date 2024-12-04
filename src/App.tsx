@@ -4,6 +4,7 @@ import Products from "./pages/products";
 import AddProduct from "./pages/products/addProduct";
 import { Routes, Route } from "react-router";
 import ProductDetail from "./pages/products/productDetail";
+import Login from "./pages/auth/login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Products />} />
       <Route path="/products" element={<Products />} />
       <Route path="/products/add" element={<AddProduct />} />
