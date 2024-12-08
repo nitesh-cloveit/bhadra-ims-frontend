@@ -60,9 +60,9 @@ const Products = () => {
   const tableData = searchText ? filteredData : productData;
 
   return (
-    <div style={{ width: "50%", margin: "auto" }}>
+    <div>
       <h1>Products</h1>
-      <div className="search-container">
+      {/* <div className="search-container">
         <Search width={16} height={16} className="icon search" />
         <input
           placeholder="type name..."
@@ -76,7 +76,7 @@ const Products = () => {
         >
           + Add New
         </button>
-      </div>
+      </div> */}
       <table>
         <thead>
           <tr>
