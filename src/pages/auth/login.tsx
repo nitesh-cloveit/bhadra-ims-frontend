@@ -17,10 +17,8 @@ export default function Login() {
     try {
       const response = await api.post("/auth/login", { username, password });
       console.log(response);
-      if (response.status === 200) {
-        navigate("/");
-        localStorage.setItem("token", response.data.token);
-      }
+      navigate("/", { state: { organizationId: 1 }});
+      localStorage.setItem("token", response.data.token);
     } catch (error: any) {
       console.error(error);
       setError(error.response.data.message);
