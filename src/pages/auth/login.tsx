@@ -4,12 +4,14 @@ import { api } from "../../api";
 import CustomButton from "../../components/customButton";
 import "./auth.css";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../context/authContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,8 +19,10 @@ export default function Login() {
     try {
       const response = await api.post("/auth/login", { username, password });
       console.log(response);
-      navigate("/", { state: { organizationId: 1 }});
-      localStorage.setItem("token", response.data.token);
+      login(response.data.token);
+      navigate("/");
+      // navigate("/", { state: { organizationId: 1 }});
+      // localStorage.setItem("token", response.data.token);
     } catch (error: any) {
       console.error(error);
       setError(error.response.data.message);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
 import { useNavigate } from "react-router";
 import { api } from "../../api";
+import { useAuth } from "../../context/authContext";
 
 interface Item {
   id: number;
@@ -22,6 +22,9 @@ const Products = () => {
   const [filteredData, setFilteredData] = useState<ItemResponse[]>([]);
   const [productData, setProductData] = useState<ItemResponse[]>([]);
   const navigate = useNavigate();
+  const { token } = useAuth();
+
+  console.log({ token });
 
   const filterByName = (name: string) => {
     // filter Data by name
