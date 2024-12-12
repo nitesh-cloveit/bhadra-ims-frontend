@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { api } from "../../api";
-import { useAuth } from "../../context/authContext";
+import { useSelector, useDispatch } from "react-redux";
+import { addProducts, findOne } from "../../redux/slices/productSlice";
 
 interface Item {
   id: number;
@@ -20,15 +20,16 @@ interface ItemResponse {
 const Products = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState<ItemResponse[]>([]);
-  const [productData, setProductData] = useState<ItemResponse[]>([]);
-  const navigate = useNavigate();
-  const { token } = useAuth();
+  // const [productData, setProductData] = useState<ItemResponse[]>([]);
 
-  console.log({ token });
+  const dispatch = useDispatch();
+  const {data: products, item} = useSelector((state: any) => state.products);
+  console.log({ products });
+
 
   const filterByName = (name: string) => {
     // filter Data by name
-    const filteredData = productData.filter(
+    const filteredData = products.filter(
       ({ item }: ItemResponse) => item.name.toLowerCase() == name.toLowerCase()
     );
     setFilteredData(filteredData);
@@ -41,9 +42,8 @@ const Products = () => {
         method: 'get',
         url: '/items',
       })
-      console.log({ response });
       if (response.status === 200) {
-        setProductData(response.data);
+        dispatch(addProducts(response.data));
       }
     } catch (error) {
       console.error({ error });
@@ -56,11 +56,18 @@ const Products = () => {
     if (searchText !== "") {
       filterByName(searchText);
     } else {
-      setFilteredData(productData);
+      setFilteredData(products);
     }
   }, [searchText]);
 
-  const tableData = searchText ? filteredData : productData;
+  useEffect(() => {
+    if (products?.length > 0) {
+      dispatch(findOne({ id: 2 }));
+      console.log({ item });
+    }
+  }, [products]);
+
+  const tableData = products ?? [];
 
   return (
     <div>
