@@ -11,8 +11,8 @@ import { useAuth } from "./context/authContext";
 
 // redirects to login page if the user is not authenticated
 const ProtectedRoutes = () => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <AppLayout /> : <Navigate to={"/login"} />;
+  const { token } = useAuth();
+  return token ? <AppLayout /> : <Navigate to={"/login"} />;
 };
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<ProtectedRoutes />}>
         <Route index path="/" element={<Products />} />
+        <Route index path="/products" element={<Products />} />
         <Route path="/products/add" element={<AddProduct />} />
         <Route path="/products/detail/:id" element={<ProductDetail />} />
         <Route path="/organization/add" element={<CreateOrganization />} />
